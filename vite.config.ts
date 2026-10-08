@@ -5,6 +5,7 @@ import path from "path";
 
 // https://vite.js.org/config/
 export default defineConfig({
+  base: "/giriismoyo/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* ===================================================================
+   SHARED DESIGN TOKENS — Gallery + About
+   =================================================================== */
+:root {
+  /* Palette */
+  --clr-cream:       #f1e3d6;  /* base background */
+  --clr-cream-light: #f7efe8;  /* alternating section */
+  --clr-taupe:       #6a5c4d;  /* panels, quote blocks */
+  --clr-caramel:     #b8926a;  /* active filter, step numbers, lines */
+  --clr-warm-gray:   #aa9d92;  /* small label boxes */
+  --clr-dark-brown:  #2f1a12;  /* headings + body text on cream */
+  --clr-mid-brown:   #4a3b32;  /* secondary body text */
+  --clr-photo-placeholder: #d9c8b8;
+
+  /* Typography */
+  --font-condensed:  'Barlow Condensed', sans-serif;
+  --font-editorial:  'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans:       'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #132c19;
+    color: #f9f7f2;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-editorial);
+  }
+
+  .font-editorial {
+    font-family: var(--font-editorial);
+  }
+
+  .font-instrument {
+    font-family: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-condensed {
+    font-family: var(--font-condensed);
+  }
+
+  .font-body, .font-sans-editorial {
+    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+/* Custom Scrollbar — gallery/cream pages */
+.gallery-scroll ::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a170d;
+}
+::-webkit-scrollbar-thumb {
+  background: #132c19;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* Utility to hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Gallery page — override body bg locally */
+.gallery-page {
+  background-color: var(--clr-cream);
+  color: var(--clr-dark-brown);
+}
+
+/* Ticker animation for Texture & Macro Craft strip */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker 22s linear infinite;
+  will-change: transform;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}

@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { InquiryDrawer } from './components/InquiryDrawer';
-import { CatalogRequestModal } from './components/CatalogRequestModal';
+import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { InquiryDrawer } from "./components/InquiryDrawer";
+import { CatalogRequestModal } from "./components/CatalogRequestModal";
 
-import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { GalleryPage } from './pages/GalleryPage';
-import { ExhibitionsPage } from './pages/ExhibitionsPage';
-import { ShopPage } from './pages/ShopPage';
-import { BlogPage } from './pages/BlogPage';
-import { ContactPage } from './pages/ContactPage';
+import { HomePage } from "./pages/HomePage";
+import { AboutPage } from "./pages/AboutPage";
+import { GalleryPage } from "./pages/GalleryPage";
+import { ExhibitionsPage } from "./pages/ExhibitionsPage";
+import { ShopPage } from "./pages/ShopPage";
+import { BlogPage } from "./pages/BlogPage";
+import { ContactPage } from "./pages/ContactPage";
 
-import type { Product } from './data/products';
+import type { Product } from "./data/products";
 
 export function App() {
-  const [inquiryItems, setInquiryItems] = useState<{ product: Product; quantity: number }[]>([]);
+  const [inquiryItems, setInquiryItems] = useState<
+    { product: Product; quantity: number }[]
+  >([]);
   const [inquiryDrawerOpen, setInquiryDrawerOpen] = useState<boolean>(false);
   const [catalogModalOpen, setCatalogModalOpen] = useState<boolean>(false);
 
@@ -26,7 +28,9 @@ export function App() {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {
         return prev.map((item) =>
-          item.product.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.product.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
         );
       }
       return [...prev, { product, quantity: 1 }];
@@ -36,21 +40,24 @@ export function App() {
 
   // Quantity updates
   const handleUpdateQuantity = (productId: string, delta: number) => {
-    setInquiryItems((prev) =>
-      prev
-        .map((item) => {
-          if (item.product.id === productId) {
-            const newQty = item.quantity + delta;
-            return newQty > 0 ? { ...item, quantity: newQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean) as { product: Product; quantity: number }[]
+    setInquiryItems(
+      (prev) =>
+        prev
+          .map((item) => {
+            if (item.product.id === productId) {
+              const newQty = item.quantity + delta;
+              return newQty > 0 ? { ...item, quantity: newQty } : null;
+            }
+            return item;
+          })
+          .filter(Boolean) as { product: Product; quantity: number }[],
     );
   };
 
   const handleRemoveItem = (productId: string) => {
-    setInquiryItems((prev) => prev.filter((item) => item.product.id !== productId));
+    setInquiryItems((prev) =>
+      prev.filter((item) => item.product.id !== productId),
+    );
   };
 
   const handleClearAll = () => {
@@ -59,12 +66,14 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#F7F4EF] text-[#1C1B18] font-sans selection:bg-[#C59D4C] selection:text-[#1E3A2B] relative flex flex-col justify-between">
-      
       {/* 1. Global Multi-Page Header */}
       <Header
         onOpenInquiry={() => setInquiryDrawerOpen(true)}
         onOpenCatalogModal={() => setCatalogModalOpen(true)}
-        inquiryCount={inquiryItems.reduce((acc, item) => acc + item.quantity, 0)}
+        inquiryCount={inquiryItems.reduce(
+          (acc, item) => acc + item.quantity,
+          0,
+        )}
       />
 
       {/* 2. 7 Multi-Page Routes */}
@@ -96,7 +105,7 @@ export function App() {
           />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          
+
           {/* Catch-all redirect to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
